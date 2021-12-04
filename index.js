@@ -1,6 +1,7 @@
 require("dotenv").config();
 const ccxt = require("ccxt");
 const axios = require("axios");
+const port = process.env.PORT || 80;
 
 const tick = async (config, binanceClient) => {
   const { asset, base, allocation, spread } = config;
