@@ -11,7 +11,6 @@ const tick = async (config, binanceClient) => {
   const market = `${asset}/${base}`;
 
   const orders = await binanceClient.fetchOpenOrders(market);
-  // console.log("orders", orders);
   if (orders.length) {
     return;
   }
@@ -19,8 +18,9 @@ const tick = async (config, binanceClient) => {
   //   await binanceClient.cancelOrder(order.id, order.symbol);
   // });
 
-  const results = await Promise.all([axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"), axios.get("https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd")]);
-  const marketPrice = results[0].data.bitcoin.usd / results[1].data.tether.usd;
+  // const results = await Promise.all([axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"), axios.get("https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd")]);
+  const results = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT`);
+  const marketPrice = results.data.price;
   console.log("marketPrice", marketPrice);
   const sellPrice = marketPrice * (1 + spread);
   const buyPrice = marketPrice * (1 - spread);
@@ -56,10 +56,6 @@ const run = () => {
   });
 
   tick(config, binanceClient);
-  // const orders = await binanceClient.fetchOpenOrders(market);
-  // if (!orders.length) {
-  //   tick(config, binanceClient);
-  // }
   setInterval(tick, config.tickInterval, config, binanceClient); // run tick function every 2 seconds
 };
 
