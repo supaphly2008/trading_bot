@@ -1,7 +1,10 @@
 require("dotenv").config();
 const ccxt = require("ccxt");
 const axios = require("axios");
-const port = process.env.PORT || 80;
+
+const express = require("express");
+const path = require("path");
+const PORT = process.env.PORT || 5000;
 
 const tick = async (config, binanceClient) => {
   const { asset, base, allocation, spread } = config;
@@ -61,6 +64,10 @@ const run = () => {
 };
 
 run();
+
+express()
+  .get("/", (req, res) => res.send(`Server running on port ${PORT}`))
+  .listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // const binanceClient = new ccxt.binance({
 //   apiKey: "CtuhPLEeQ7MwJqvy415bEYROc8apWM6Cp7rYKicYymU8b5wCx1TZtJfwLuI5ZWjD",

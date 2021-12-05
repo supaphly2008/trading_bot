@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "ccxt": "^1.62.90",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
   }
 }
