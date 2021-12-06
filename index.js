@@ -28,16 +28,16 @@ const tick = async (config, binanceClient) => {
   const balance = await binanceClient.fetchBalance();
   const assetBalance = balance.free[asset];
   const baseBalance = balance.free[base];
-  const buyVolume = (baseBalance * allocation) / marketPrice;
-  const sellVolume = assetBalance * allocation;
+  const volume = (baseBalance * allocation) / marketPrice;
+  // const sellVolume = assetBalance * allocation;
 
-  await binanceClient.createLimitSellOrder(market, sellVolume, sellPrice);
-  await binanceClient.createLimitBuyOrder(market, buyVolume, buyPrice);
+  await binanceClient.createLimitSellOrder(market, volume, sellPrice);
+  await binanceClient.createLimitBuyOrder(market, volume, buyPrice);
 
   console.log(`
     New tick for ${market}...
-    Created limit sell order for ${sellVolume}@${sellPrice}
-    Created limit buy order for ${buyVolume}@${buyPrice}
+    Created limit sell order for ${volume}@${sellPrice}
+    Created limit buy order for ${volume}@${buyPrice}
   `);
 };
 
