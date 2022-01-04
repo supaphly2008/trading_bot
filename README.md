@@ -17,3 +17,11 @@ Inside the `.env` file:
 API_KEY: {YOUR API KEY}
 API_SECRET: {YOUR API SECRET}
 ```
+
+To run the app
+```
+node index.js
+```
+
+
+If you want the bot to run constantly then you need to host the app on the server so it doesn't get interrupted.
